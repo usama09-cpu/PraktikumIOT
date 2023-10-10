@@ -2,55 +2,42 @@
 <html>
 
 <head>
-    <title>Status Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kontrol Lampu ESP32</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
         }
 
         h1 {
-            margin-top: 20px;
+            color: #333;
         }
 
-        #status-container {
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
         }
     </style>
+    <script>
+        function toggleLight(state) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Respons dari ESP32, jika diperlukan
+                    console.log(state);
+                }
+            };
+            xhr.open("GET", "/PraktikumIOT/index.html?state=" + state, true);
+            xhr.send();
+        }
+    </script>
 </head>
 
 <body>
-    <h1>Status Page</h1>
-    <div id="status-container">
-        <h2>Status:</h2>
-        <p id="status-text">Loading...</p>
-    </div>
-
-    <script>
-        // Mengambil parameter dari URL
-        const params = new URLSearchParams(window.location.search);
-        const ledName = params.get('led');
-        const status = params.get('status');
-
-        // Mendapatkan elemen teks status
-        const statusText = document.getElementById('status-text');
-
-        // Menampilkan status sesuai dengan parameter yang diterima
-        if (ledName !== null && status !== null) {
-            if (status === '1') {
-                statusText.textContent = `LED ${ledName} is ON`;
-            } else if (status === '0') {
-                statusText.textContent = `LED ${ledName} is OFF`;
-            } else {
-                statusText.textContent = 'Invalid status';
-            }
-        } else {
-            statusText.textContent = 'Invalid request';
-        }
-    </script>
+    <h1>Kontrol Lampu</h1>
+    <button onclick="toggleLight(1)">Nyalakan Lampu</button>
+    <button onclick="toggleLight(0)">Matikan Lampu</button>
 </body>
 
 </html>
