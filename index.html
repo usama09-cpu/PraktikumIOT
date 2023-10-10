@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kontrol Lampu ESP32</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+        }
+    </style>
+    <script>
+        function toggleLight(state) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Respons dari ESP32, jika diperlukan
+                    console.log(state);
+                }
+            };
+            xhr.open("GET", "/usama/web/Tes/index.html?state=" + state, true);
+            xhr.send();
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Kontrol Lampu</h1>
+    <button onclick="toggleLight(1)">Nyalakan Lampu</button>
+    <button onclick="toggleLight(0)">Matikan Lampu</button>
+</body>
+
+</html>
