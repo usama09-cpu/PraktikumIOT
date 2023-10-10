@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Status Lampu</title>
+</head>
+
+<body>
+    <h1>Status Lampu</h1>
+    <p>Lampu saat ini dalam keadaan: <span id="lampuStatus">Matikan</span></p>
+
+    <script>
+        // Membaca parameter state dari URL (GET)
+        var query = window.location.search.substring(1); // Menghilangkan tanda tanya (?)
+        var params = new URLSearchParams(query);
+        var stateParam = params.get("state");
+
+        // Menentukan status berdasarkan nilai state yang diterima
+        var statusText = "Matikan";
+        if (stateParam === "1") {
+            statusText = "Nyalakan";
+        }
+
+        // Memperbarui teks status pada halaman
+        document.getElementById("lampuStatus").textContent = statusText;
+    </script>
+</body>
+
+</html>
